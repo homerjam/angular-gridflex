@@ -1,0 +1,29 @@
+<html>
+
+	<head>
+
+		<title>angular-gridflex</title>
+
+		<link rel="stylesheet" type="text/css" href="example/styles.css">
+
+	</head>
+
+	<body ng-app="ExampleApp" ng-controller="ExampleCtrl" ng-click="generateItems()">
+
+		<div class="gridflex" hj-gridflex="{itemSelector: '.item', perRow: 4, averageRatio: 1.5, gutter: 2, repeatCollection: 'items', repeatVariable: 'item'}">
+				
+			<div ng-repeat="item in items track by $index" class="item" data-ratio="{{item.ratio}}" style="background-color: {{item.color}}">
+
+				<div style="padding-top: {{item.inverseRatio * 100 + '%'}}"></div>
+
+			</div>
+
+		</div>
+
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="angular-gridflex.js"></script>
+		<script type="text/javascript" src="example/app.js"></script>
+
+	</body>
+
+</html>

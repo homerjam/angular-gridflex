@@ -1,0 +1,14 @@
+{
+    "name": "angular-gridify",
+    "version": "0.0.1",
+    "description": "Angular directive that creates a justified grid of elements using flexbox",
+    "main": "angular-gridflex.js",
+    "ignore": [
+        "*",
+        "!README.md",
+        "!angular-gridflex.js"
+    ],
+    "dependencies": {
+        "angular": "~1.2.22"
+    }
+}
