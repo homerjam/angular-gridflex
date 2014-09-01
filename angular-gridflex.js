@@ -41,7 +41,8 @@
                             perRow: 5,
                             gutter: 0,
                             verticalGutter: 'right',
-                            horizontalGutter: 'bottom'
+                            horizontalGutter: 'bottom',
+                            ratioAttribute: 'ratio'
                             // averageRatio: 1.5 // optionally try to balance rows by working in combination with `perRow`
                             // maxRowHeight: 100 // rows will not exceed this height, use in combination with `alignment`
                             // minRowLength: 5 // optionally make rows longer than this fill the available width
@@ -105,7 +106,7 @@
                         angular.forEach(targets, function(item) {
                             item = angular.element(item);
 
-                            item.ratio = options.repeatVariable ? item.scope()[options.repeatVariable].ratio : Number(item.attr('data-ratio'));
+                            item.ratio = options.repeatVariable ? item.scope()[options.repeatVariable][options.ratioAttribute] : Number(item.attr('data-' + options.ratioAttribute));
                             item.inverseRatio = 1 / item.ratio;
 
                             if (options.repeatVariable) {
@@ -144,8 +145,10 @@
                         rows.push(row);
 
                         angular.forEach(rows, function(row, i) {
+                            var lastRowFillWidth = i === rows.length - 1 && (row.items.length < opts.minRowLength || opts.minRowLength === -1);
+
                             // if this is the last row then figure out what ratio to use (may want items to fill width or may want items to use average height)
-                            rowRatio = i === rows.length - 1 && (row.items.length < opts.minRowLength || opts.minRowLength === -1) && totalRatio > 0 ? Math.max(totalRatio / (rows.length - 1), row.ratio) : row.ratio;
+                            rowRatio = lastRowFillWidth && totalRatio > 0 ? Math.max(totalRatio / (rows.length - 1), row.ratio) : row.ratio;
 
                             totalRatio += rowRatio;
 
@@ -158,9 +161,9 @@
 
                                 } else if (ii === row.items.length - 1) {
                                     item[0].classList.add('gridflex-row-end');
-                                } 
+                                }
 
-                                var flexWidth = ((item.ratio / rowRatio) * (100 - ((row.items.length - 1) * opts.gutter))) + '%',
+                                var flexWidth = ((item.ratio / rowRatio) * (100 - ((lastRowFillWidth ? (((targets.length - row.items.length) / (rows.length - 1))) - 1 : row.items.length - 1) * opts.gutter))) + '%',
                                     flex = '0 1 ' + flexWidth;
 
                                 var css = {
@@ -172,8 +175,8 @@
                                     'flex': flex
                                 };
 
-                                css['margin-'+opts.verticalGutter] = ii === row.items.length - 1 ? 0 : opts.gutter + '%';
-                                css['margin-'+opts.horizontalGutter] = i === rows.length - 1 ? 0 : opts.gutter + '%';
+                                css['margin-' + opts.verticalGutter] = ii === row.items.length - 1 ? 0 : opts.gutter + '%';
+                                css['margin-' + opts.horizontalGutter] = i === rows.length - 1 ? 0 : opts.gutter + '%';
 
                                 item.css(css);
                             });
@@ -202,7 +205,7 @@
 
                         _resize(true);
 
-                        $timeout(function(){
+                        $timeout(function() {
                             _resize(true); // trigger resize a second time just in case scrollbars kicked in
                         });
                     };
