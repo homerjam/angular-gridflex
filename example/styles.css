@@ -1,6 +1,9 @@
 body {
     margin: 0;
     padding: 10px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .gridflex {
@@ -28,6 +31,10 @@ body {
     -webkit-align-content: center;
     -moz-align-content: center;
     align-content: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;    
     -ms-flex-line-pack: center;
     min-height: 100%;
+    cursor: pointer;
 }
