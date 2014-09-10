@@ -145,7 +145,7 @@
                         rows.push(row);
 
                         angular.forEach(rows, function(row, i) {
-                            var lastRowFillWidth = i === rows.length - 1 && (row.items.length < opts.minRowLength || opts.minRowLength === -1);
+                            var lastRowFillWidth = i === rows.length - 1 && rows.length > 1 && (row.items.length < opts.minRowLength || opts.minRowLength === -1);
 
                             // if this is the last row then figure out what ratio to use (may want items to fill width or may want items to use average height)
                             rowRatio = lastRowFillWidth && totalRatio > 0 ? Math.max(totalRatio / (rows.length - 1), row.ratio) : row.ratio;
@@ -163,7 +163,7 @@
                                     item[0].classList.add('gridflex-row-end');
                                 }
 
-                                var flexWidth = ((item.ratio / rowRatio) * (100 - ((lastRowFillWidth ? (((targets.length - row.items.length) / (rows.length - 1))) - 1 : row.items.length - 1) * opts.gutter))) + '%',
+                                var flexWidth = (item.ratio / rowRatio) * (100 - ((lastRowFillWidth ? ((targets.length - row.items.length) / (rows.length - 1)) - 1 : row.items.length - 1) * opts.gutter)) + '%',
                                     flex = '0 1 ' + flexWidth;
 
                                 var css = {
