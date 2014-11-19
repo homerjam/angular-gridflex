@@ -28,7 +28,7 @@
 (function() {
     'use strict';
 
-    angular.module('angular-gridflex', []).directive('hjGridflex', ['$log', '$timeout', '$window',
+    angular.module('hj.gridflex', []).directive('hjGridflex', ['$log', '$timeout', '$window',
         function($log, $timeout, $window) {
             return {
                 restrict: 'A',
@@ -153,14 +153,14 @@
                             totalRatio += rowRatio;
 
                             angular.forEach(row.items, function(item, ii) {
-                                item[0].classList.remove('gridflex-row-start');
-                                item[0].classList.remove('gridflex-row-end');
+                                item.removeClass('gridflex-row-start');
+                                item.removeClass('gridflex-row-end');
 
                                 if (ii === 0) {
-                                    item[0].classList.add('gridflex-row-start');
+                                    item.addClass('gridflex-row-start');
 
                                 } else if (ii === row.items.length - 1) {
-                                    item[0].classList.add('gridflex-row-end');
+                                    item.addClass('gridflex-row-end');
                                 }
 
                                 var flexWidth = (item.ratio / rowRatio) * (100 - ((lastRowFillWidth ? ((targets.length - row.items.length) / (rows.length - 1)) - 1 : row.items.length - 1) * opts.gutter)) + '%',
@@ -175,8 +175,8 @@
                                     'flex': flex
                                 };
 
-                                css['margin-' + opts.verticalGutter] = ii === row.items.length - 1 ? 0 : opts.gutter + '%';
-                                css['margin-' + opts.horizontalGutter] = i === rows.length - 1 ? 0 : opts.gutter + '%';
+                                css['margin-' + opts.verticalGutter] = (ii === row.items.length - 1 ? 0 : opts.gutter) * (elementWidth / 100) + 'px';
+                                css['margin-' + opts.horizontalGutter] = (i === rows.length - 1 ? 0 : opts.gutter) * (elementWidth / 100) + 'px';
 
                                 item.css(css);
                             });
