@@ -25,4 +25,4 @@ angular.module('ExampleCtrl', []).controller('ExampleCtrl', ['$scope',
     }
 ]);
 
-angular.module('ExampleApp', ['angular-gridflex', 'ExampleCtrl']).config(function() {});
+angular.module('ExampleApp', ['hj.gridflex', 'ExampleCtrl']).config(function() {});
