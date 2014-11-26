@@ -145,7 +145,7 @@
                         rows.push(row);
 
                         angular.forEach(rows, function(row, i) {
-                            var lastRowFillWidth = i === rows.length - 1 && rows.length > 1 && (row.items.length < opts.minRowLength || opts.minRowLength === -1);
+                            var lastRowFillWidth = i === rows.length - 1 && rows.length > 1 && row.items.length < opts.minRowLength;
 
                             // if this is the last row then figure out what ratio to use (may want items to fill width or may want items to use average height)
                             rowRatio = lastRowFillWidth && totalRatio > 0 ? Math.max(totalRatio / (rows.length - 1), row.ratio) : row.ratio;
