@@ -115,7 +115,10 @@
 
                             if (opts.averageRatio) {
                                 // check if total averageRatio has been exceeded for the row or if row will exceed maxRowHeight - if true create new row
-                                if (rowRatio + item.ratio > opts.averageRatio * opts.perRow && (opts.maxRowHeight === 0 || (opts.maxRowHeight > 0 && elementWidth * (1 / rowRatio) < opts.maxRowHeight))) {
+                                if (row.items.length >= opts.minRowLength &&
+                                    rowRatio + item.ratio > opts.averageRatio * opts.perRow &&
+                                    (opts.maxRowHeight === 0 || (opts.maxRowHeight > 0 && elementWidth * (1 / rowRatio) < opts.maxRowHeight))) {
+
                                     row.ratio = rowRatio;
                                     rows.push(row);
 
